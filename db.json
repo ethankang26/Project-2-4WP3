@@ -1,0 +1,18 @@
+{
+  "books": [
+    {
+      "id": "book1",
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "year_published": 1925,
+      "page_count": 218
+    },
+    {
+      "id": "book2",
+      "title": "1984",
+      "author": "George Orwell",
+      "year_published": 1949,
+      "page_count": 328
+    }
+  ]
+}
