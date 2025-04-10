@@ -1,5 +1,7 @@
-// Admin dashboard page
+'use client';
+
 import Link from "next/link";
+import { useTransition } from "react";
 
 type Book = {
   id: string;
@@ -9,13 +11,40 @@ type Book = {
   page_count: number;
 };
 
+async function deleteBook(id: string) {
+  await fetch(`http://localhost:4000/books/${id}`, {
+    method: "DELETE",
+  });
+
+  // Revalidate routes after deletion
+  await fetch(`http://localhost:3000/api/revalidate?path=/collection`);
+  await fetch(`http://localhost:3000/api/revalidate?path=/collection/${id}`);
+  await fetch(`http://localhost:3000/api/revalidate?path=/admin`);
+}
+
 async function getBooks(): Promise<Book[]> {
-  const res = await fetch("http://localhost:4000/books");
+  const res = await fetch("http://localhost:4000/books", { cache: "no-store" });
   return res.json();
 }
 
-export default async function AdminPage() {
-  const books = await getBooks();
+export default function AdminPageWrapper() {
+  return <AdminPage />;
+}
+
+function AdminPage() {
+  const [isPending, startTransition] = useTransition();
+  const [books, setBooks] = React.useState<Book[]>([]);
+
+  React.useEffect(() => {
+    getBooks().then(setBooks);
+  }, []);
+
+  const handleDelete = async (id: string) => {
+    startTransition(async () => {
+      await deleteBook(id);
+      setBooks(books.filter((book) => book.id !== id));
+    });
+  };
 
   return (
     <div className="p-4 space-y-4">
@@ -50,8 +79,13 @@ export default async function AdminPage() {
                 <Link href={`/admin/edit/${book.id}`} className="text-green-600 font-bold">E</Link>
               </td>
               <td className="border p-2 text-center">
-                {/* Delete functionality will go here in next step */}
-                <span className="text-red-600 font-bold cursor-not-allowed">D</span>
+                <button
+                  onClick={() => handleDelete(book.id)}
+                  className="text-red-600 font-bold"
+                  disabled={isPending}
+                >
+                  D
+                </button>
               </td>
             </tr>
           ))}
