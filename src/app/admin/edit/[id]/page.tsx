@@ -1,4 +1,5 @@
 // Admin edit server page
+import React from "react";
 import EditForm from "./EditForm";
 
 type Book = {
