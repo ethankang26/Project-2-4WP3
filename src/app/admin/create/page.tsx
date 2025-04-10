@@ -53,11 +53,11 @@ export default function CreateBookPage() {
           </div>
         ))}
         <button
-          type="submit"
-          className="bg-blue-600 text-white font-bold px-4 py-2 rounded"
-        >
-          Submit
-        </button>
+  type="submit"
+  className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded"
+>
+  Submit
+</button>
       </form>
     </div>
   );
