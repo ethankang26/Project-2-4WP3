@@ -89,12 +89,12 @@ export default function EditForm({ book }: { book: Book }) {
           />
         </div>
       ))}
-      <button
-        type="submit"
-        className="bg-green-600 text-white font-bold px-4 py-2 rounded"
-      >
-        Save Changes
-      </button>
+     <button
+  type="submit"
+  className="bg-green-600 hover:bg-green-700 text-white font-bold px-4 py-2 rounded"
+>
+  Save Changes
+</button>
     </form>
   );
 }
