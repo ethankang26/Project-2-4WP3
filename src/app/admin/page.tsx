@@ -80,12 +80,12 @@ function AdminPage() {
               </td>
               <td className="border p-2 text-center">
                 <button
-                  onClick={() => handleDelete(book.id)}
-                  className="text-red-600 font-bold"
-                  disabled={isPending}
-                >
-                  D
-                </button>
+  onClick={() => handleDelete(book.id)}
+  className="bg-red-600 hover:bg-red-700 text-white font-bold px-2 py-1 rounded"
+>
+  D
+</button>
+
               </td>
             </tr>
           ))}
